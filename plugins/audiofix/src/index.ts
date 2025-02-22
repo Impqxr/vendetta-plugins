@@ -1,4 +1,9 @@
 import { ReactNative as RN } from "@vendetta/metro/common";
 import { instead } from "@vendetta/patcher";
 
-export const onUnload = instead("setCommunicationModeOn", RN.NativeModules.AudioManager === null ? RN.NativeModules.RTNAudioManager : RN.NativeModules.AudioManager, () => {});
+const AudioManager =
+  RN.NativeModules.AudioManager ??
+  RN.NativeModules.RTNAudioManager ??
+  RN.NativeModules.NativeAudioManagerModule;
+
+export const onUnload = instead("setCommunicationModeOn", AudioManager, () => {});

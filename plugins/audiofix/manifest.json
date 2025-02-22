@@ -1,6 +1,6 @@
 {
   "name": "Blueooth Audio Fix",
-  "description": "Prevents discord from enabling handsfree mode while in a call",
+  "description": "Prevents discord from enabling handsfree mode while in a call. Fixed plugin for newer Discord versions.",
   "authors": [
     {
       "name": "redstonekasi",
