@@ -9,17 +9,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Prepare environment
-        uses: actions/setup-node@v2
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
         with:
-          node-version: "16"
+          version: 10
+          run_install: false
 
-      - run: npm install --global pnpm
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
 
-      - name: Install deps
-        run: pnpm m i
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Build plugin(s)
         run: node ./build.mjs
@@ -37,7 +43,7 @@ jobs:
 
         # Documentation: https://github.com/peaceiris/actions-gh-pages
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
